@@ -48,7 +48,7 @@ namespace Configuration
         {
             XElement configXml = null;
 
-            if(RoleEnvironment.IsEmulated)
+            if(!RoleEnvironment.IsAvailable/*as local web project*/ || RoleEnvironment.IsEmulated /*as azure emulator project*/)
             {
                 var localConfigFile =
                     new System.IO.DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.EnumerateFiles(
