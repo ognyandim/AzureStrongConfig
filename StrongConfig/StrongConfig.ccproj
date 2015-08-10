@@ -12,6 +12,7 @@
     <AssemblyName>StrongConfig</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
     <Name>StrongConfig</Name>
+    <UseWebProjectPorts>False</UseWebProjectPorts>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

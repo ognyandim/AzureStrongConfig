@@ -39,8 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAzureServiceConfiguration.cs" />
+    <Compile Include="IConnectionStrings.cs" />
     <Compile Include="IMicrosoftStorageConfig.cs" />
     <Compile Include="IServiceConfigurationProvider.cs" />
+    <Compile Include="IWebConfigSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

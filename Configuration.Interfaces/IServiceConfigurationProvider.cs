@@ -2,8 +2,9 @@
 
 namespace Configuration.Interfaces
 {
-    public interface IServiceConfigurationProvider
+    public interface IAzureServiceConfigurationProvider
     {
-        Dictionary<string, Dictionary<string, string>> GetConfig();
+        Dictionary<string, Dictionary<string, string>> GetConfigRaw();
+        IAzureServiceConfiguration GetConfig();
     }
 }
