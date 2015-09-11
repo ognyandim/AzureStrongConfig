@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -145,7 +146,18 @@ namespace Configuration
 
                 var computeManagementClient = new ComputeManagementClient(credentials);
                 var response = computeManagementClient.HostedServices.GetDetailed(_cloudServiceName);
-                var deployment = response.Deployments.FirstOrDefault(d => d.DeploymentSlot == DeploymentSlot.Production);
+                HostedServiceGetDetailedResponse.Deployment deployment = null;
+
+                var isProduction = Convert.ToBoolean(ConfigurationManager.AppSettings["IsProduction"]);
+                if(isProduction)
+                {
+                    deployment = response.Deployments.FirstOrDefault(d => d.DeploymentSlot == DeploymentSlot.Production);
+                }
+                else
+                {
+                    deployment = response.Deployments.FirstOrDefault(d => d.DeploymentSlot == DeploymentSlot.Staging);
+                }
+
                 if(deployment != null)
                 {
                     var config = deployment.Configuration;
