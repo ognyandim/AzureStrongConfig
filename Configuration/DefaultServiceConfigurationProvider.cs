@@ -148,7 +148,7 @@ namespace Configuration
                 var response = computeManagementClient.HostedServices.GetDetailed(_cloudServiceName);
                 HostedServiceGetDetailedResponse.Deployment deployment = null;
 
-                var isProduction = Convert.ToBoolean(ConfigurationManager.AppSettings["IsProduction"]);
+                var isProduction = Convert.ToBoolean(CloudConfigurationManager.GetSetting("IsProduction"));
                 if(isProduction)
                 {
                     deployment = response.Deployments.FirstOrDefault(d => d.DeploymentSlot == DeploymentSlot.Production);
