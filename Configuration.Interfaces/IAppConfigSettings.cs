@@ -1,6 +1,6 @@
 ﻿namespace Configuration.Interfaces
 {
-    public interface IWebConfigSettings
+    public interface IAppConfigSettings
     {
         string SubscriptionId { get; set; }
         string ManagementCertContents { get; set; }

@@ -2,6 +2,6 @@
 {
     public interface IMicrosoftStorageConfig
     {
-        string BlobConnectionstring { get; set; }
+        string StorageConnectionString { get; set; }
     }
 }

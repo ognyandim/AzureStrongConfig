@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="StrongConfig" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
-    <Role name="Web">
-        <Instances count="1" />
-        <ConfigurationSettings>
-            <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-            <Setting name="BlobConnectionstring" value="UseDevelopmentStorage=true" />
-            <Setting name="IsProduction" value="false" />
-        </ConfigurationSettings>
-    </Role>
+  <Role name="Web">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="IsProduction" value="false" />
+      <Setting name="ServiceBusConnectionString" value="Service Bus Conn String Example Value"/>
+    </ConfigurationSettings>
+  </Role>
+  <Role name="Worker">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="ServiceBusConnectionString" value="Service Bus Conn String Example Value"/>
+      <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
+    </ConfigurationSettings>
+  </Role>
 </ServiceConfiguration>

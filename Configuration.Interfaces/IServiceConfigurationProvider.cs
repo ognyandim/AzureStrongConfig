@@ -5,6 +5,6 @@ namespace Configuration.Interfaces
     public interface IAzureServiceConfigurationProvider
     {
         Dictionary<string, Dictionary<string, string>> GetConfigRaw();
-        IAzureServiceConfiguration GetConfig();
+        IAzureServiceConfiguration GetConfig(string roleName);
     }
 }

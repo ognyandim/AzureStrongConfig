@@ -15,7 +15,7 @@ namespace Persistence
 
         public void ConfigDependentAction(string argument)
         {
-            var configSetting = _microsoftStorageConfig.BlobConnectionstring;
+            var configSetting = _microsoftStorageConfig.StorageConnectionString;
         }
     }
 }

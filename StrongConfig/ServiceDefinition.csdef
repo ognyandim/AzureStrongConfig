@@ -1,20 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="StrongConfig" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2015-04.2.6">
-    <WebRole name="Web" vmsize="Small">
-        <Sites>
-            <Site name="Web">
-                <Bindings>
-                    <Binding name="Endpoint1" endpointName="Endpoint1" />
-                </Bindings>
-            </Site>
-        </Sites>
-        <ConfigurationSettings>
-            <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
-            <Setting name="BlobConnectionstring" />
-            <Setting name="IsProduction" />
-        </ConfigurationSettings>
-        <Endpoints>
-            <InputEndpoint name="Endpoint1" protocol="http" port="80" />
-        </Endpoints>
-    </WebRole>
+  <WebRole name="Web" vmsize="Small">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="StorageConnectionString" />
+      <Setting name="IsProduction" />
+      <Setting name="ServiceBusConnectionString" />
+      
+    </ConfigurationSettings>
+    <Endpoints>
+      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+    </Endpoints>
+  </WebRole>
+  <WorkerRole name="Worker" vmsize="Small">
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="ServiceBusConnectionString" />
+      <Setting name="StorageConnectionString" />
+      
+    </ConfigurationSettings>
+  </WorkerRole>
 </ServiceDefinition>

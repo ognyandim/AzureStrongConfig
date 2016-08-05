@@ -30,19 +30,20 @@ namespace Configuration
         // We use webConfig to 
         // (1) to be able to use in test env. with only web instance with no azure emulator
         // (2) to hide some credentials in outside file in web.config
-        public DefaultAzureServiceConfigurationProvider(IWebConfigSettings webConfigSettings)
+        public DefaultAzureServiceConfigurationProvider(IAppConfigSettings appConfigSettings)
         {
-            _subscriptionId = webConfigSettings.SubscriptionId;
-            _managementCertContents = webConfigSettings.ManagementCertContents;
-            _cloudServiceName = webConfigSettings.CloudServiceName;
-            _serviceConfigurationNamespace = webConfigSettings.ServiceConfigurationNamespace;
+            _subscriptionId = appConfigSettings.SubscriptionId;
+            _managementCertContents = appConfigSettings.ManagementCertContents;
+            _cloudServiceName = appConfigSettings.CloudServiceName;
+            _serviceConfigurationNamespace = appConfigSettings.ServiceConfigurationNamespace ??
+                                             "http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration";
         }
 
         public Dictionary<string, Dictionary<string, string>> GetConfigRaw()
         {
             var configuration = new Dictionary<string, Dictionary<string, string>>();
             var configXml = GetConfigXml();
-            var roles = configXml.Descendants(XName.Get("Role", _serviceConfigurationNamespace));
+            var roles = configXml != null ? configXml.Descendants(XName.Get("Role", _serviceConfigurationNamespace)) : new XElement[0];
 
             foreach(var role in roles)
             {
@@ -60,15 +61,19 @@ namespace Configuration
             return configuration;
         }
 
-        public IAzureServiceConfiguration GetConfig()
+        public IAzureServiceConfiguration GetConfig(string roleName)
         {
             var configFactory = new DictionaryAdapterFactory();
             IAzureServiceConfiguration config;
             try
             {
-
+                var rawAzureWebServiceConfig = new Dictionary<string, string>();
                 var rawAzureServiceConfig = GetConfigRaw();
-                var rawAzureWebServiceConfig = rawAzureServiceConfig["Core.Web"];
+                if (rawAzureServiceConfig.Count > 0)
+                {
+                    rawAzureWebServiceConfig = rawAzureServiceConfig[roleName];
+                }
+                
                 config = configFactory.GetAdapter<IAzureServiceConfiguration>(rawAzureWebServiceConfig);
                 config = ComplementConfigurationFromConfigurationManager(config);
             }
@@ -130,6 +135,11 @@ namespace Configuration
                     var localConfigFile =
                         new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.EnumerateFiles(
                             "*Local.cscfg", SearchOption.AllDirectories).FirstOrDefault();
+                    if (localConfigFile == null)
+                    {
+                        return null;
+                    }
+
                     XmlDocument doc = new XmlDocument();
                     doc.Load(localConfigFile.FullName);
                     configXml = XElement.Parse(doc.InnerXml);

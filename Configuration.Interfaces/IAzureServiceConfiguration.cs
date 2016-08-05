@@ -3,7 +3,7 @@
     public interface IAzureServiceConfiguration
     {
         string SubscriptionId { get; set; }
-        string BlobConnectionString { get; set; }
+        string StorageConnectionString { get; set; }
         string ServiceBusConnectionString { get; set; }
 
         string CloudStorageAccountKey { get; set; }

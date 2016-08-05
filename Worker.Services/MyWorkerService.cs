@@ -1,10 +1,10 @@
 ﻿using Configuration.Interfaces;
 using Persistence.Interfaces;
-using Services.Interfaces;
+using Worker.Services.Interfaces;
 
-namespace Services
+namespace Worker.Services
 {
-    public class MyService : IMyService
+    public class MyWorkerService : IMyWorkerService
     {
         private readonly IConnectionStrings _connectionStrings;
         private readonly IAzureServiceConfiguration _azureServiceConfiguration;
@@ -12,7 +12,7 @@ namespace Services
         private readonly IPersitenceServiceConfigDependent _persitenceServiceConfigDependent;
         private readonly IAppConfigSettings _appConfigSettings;
 
-        public MyService(
+        public MyWorkerService(
             IPersitenceServiceConfigDependent persitenceServiceConfigDependent,
 
             IConnectionStrings connectionStrings,
@@ -32,10 +32,10 @@ namespace Services
             _persitenceServiceConfigDependent.ConfigDependentAction("none");
             var configSetting = _microsoftStorageConfig.StorageConnectionString;
             return $"Job done :" +
-                   $"-- msConfig : {configSetting}, " +
-                   $"-- azureConfig.ServiceBusConnectionString:{_azureServiceConfiguration.ServiceBusConnectionString} " +
-                   $"-- webConfig.SubscriptionId:{_appConfigSettings.SubscriptionId} " +
-                   $"-- connectionStrings.DefaultConnection :{_connectionStrings.DefaultConnection}";
+                   $" <br> msConfig : {configSetting}, " +
+                   $" <br> azureConfig.ServiceBusConnectionString:{_azureServiceConfiguration.ServiceBusConnectionString} " +
+                   $" <br> webConfig.SubscriptionId:{_appConfigSettings.SubscriptionId} " +
+                   $" <br> connectionStrings.DefaultConnection :{_connectionStrings.DefaultConnection}";
         }
     }
 }
