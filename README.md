@@ -1,21 +1,13 @@
 # AzureStrongConfig
 Azure Service With Strong Typed Configuration via Castle Dicitonary Adapter
 
-How to use : 
+# How to use : 
 
-1. Define configuration interfaces like 
+## Define configuration interfaces like in **Configuration.Interfaces** assembly
 
-`namespace Configuration.Interfaces
-{
-    public interface IAzureServiceConfiguration
-    {
-        string SubscriptionId { get; set; }
-        string StorageConnectionString { get; set; }
-        string ServiceBusConnectionString { get; set; }
 
-        string CloudStorageAccountKey { get; set; }
-        string CloudStorageAccountName { get; set; }
+## Define your factories / use azure config provider in composition root and use dictionary adapter to fill the config dictionaries like in **CompositionRoot.cs** files 
 
-        string CommonBlobContainer { get; set; }
-    }
-}`
+## Define your factories / use azure config provider in composition root and use dictionary adapter to fill the config dictionaries
+
+## Inject your config like in **MyWorkerService**
