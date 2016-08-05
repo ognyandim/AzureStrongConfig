@@ -8,6 +8,4 @@ Azure Service With Strong Typed Configuration via Castle Dicitonary Adapter
 
 2. Define your factories / use azure config provider in composition root and use dictionary adapter to fill the config dictionaries like in **CompositionRoot.cs** files 
 
-3. Define your factories / use azure config provider in composition root and use dictionary adapter to fill the config dictionaries
-
-4. Inject your config like in **MyWorkerService**
+3. Inject your config like in **MyWorkerService**
